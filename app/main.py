@@ -25,7 +25,7 @@ app = FastAPI(title="Vigil ML Service")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # locked down to the deployed Lovable URL later
+    allow_origins=["https://vigil-govin.lovable.app"],
     allow_methods=["*"],
     allow_headers=["*"],
 )

@@ -1,0 +1,17 @@
+work_id,description,state,district,category,sanctioned_cost,sanction_date,expected_duration_days,completion_date,is_complete,has_completion_image,total_paid,lat,lon
+W001,Construction of concrete road at Shivaji Nagar,Maharashtra,Nashik,Road,1200000,2022-04-10,120,2022-09-05,True,True,1150000,19.9975,73.7898
+W002,Construction of concrete road at Shivaji Nagar phase 2,Maharashtra,Nashik,Road,1150000,2022-04-15,110,2022-08-20,True,True,1100000,19.9980,73.7901
+W003,Installation of overhead water tank at Panchavati,Maharashtra,Nashik,Water Supply,800000,2022-01-05,90,2022-04-10,True,True,780000,20.0110,73.7960
+W004,Construction of additional classroom at Zilla Parishad school,Maharashtra,Nashik,School Building,600000,2022-02-01,150,,False,False,200000,19.9890,73.7700
+W005,Widening of state highway connecting link road,Maharashtra,Nashik,Road,45000000,2022-03-01,365,,False,False,5000000,20.0500,73.8200
+W006,Construction of community hall in Deolali village,Maharashtra,Nashik,Community Hall,900000,2022-05-10,100,2022-09-01,True,True,890000,19.9500,73.8100
+W007,Construction of cement concrete road in Hadapsar,Maharashtra,Pune,Road,1300000,2022-01-15,130,2022-06-30,True,True,1280000,18.5089,73.9260
+W008,Laying of new water pipeline in Kothrud,Maharashtra,Pune,Water Supply,950000,2022-02-20,100,2022-07-15,True,True,930000,18.5074,73.8077
+W009,Renovation of primary school building at Wagholi,Maharashtra,Pune,School Building,700000,2022-03-10,120,,False,False,100000,18.5679,73.9800
+W010,Construction of new community center at Hinjewadi,Maharashtra,Pune,Community Hall,1100000,2021-11-01,150,2022-05-01,True,True,1080000,18.5912,73.7389
+W011,Repair and resurfacing of internal roads in Kothrud,Maharashtra,Pune,Road,500000,2022-04-01,60,2022-06-15,True,True,495000,18.5100,73.8090
+W012,Construction of overhead water storage tank at Sitabuldi,Maharashtra,Nagpur,Water Supply,850000,2022-01-20,100,2022-05-10,True,True,840000,21.1466,79.0849
+W013,Construction of concrete road at Sadar area,Maharashtra,Nagpur,Road,1250000,2022-02-15,120,2022-07-01,True,True,1220000,21.1600,79.0800
+W014,Construction of boundary wall for government school,Maharashtra,Nagpur,School Building,400000,2022-03-20,90,,False,False,50000,21.1300,79.1000
+W015,Construction of village community hall at Kamptee,Maharashtra,Nagpur,Community Hall,950000,2021-12-01,110,2022-04-15,True,True,940000,21.2300,79.1900
+W016,Construction of cement road at Indira Nagar,Maharashtra,Nashik,Road,1180000,2022-06-01,100,2022-11-20,True,True,1150000,19.9800,73.7600

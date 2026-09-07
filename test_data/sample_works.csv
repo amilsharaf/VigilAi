@@ -1,6 +1,6 @@
 work_id,description,state,district,category,sanctioned_cost,sanction_date,expected_duration_days,completion_date,is_complete,has_completion_image,total_paid,lat,lon
-W001,Construction of concrete road at Shivaji Nagar,Maharashtra,Nashik,Road,1200000,2022-04-10,120,2022-09-05,True,True,1150000,19.9975,73.7898
-W002,Construction of concrete road at Shivaji Nagar phase 2,Maharashtra,Nashik,Road,1150000,2022-04-15,110,2022-08-20,True,True,1100000,19.9980,73.7901
+W001,Construction of concrete road at Shivaji Nagar Village,Maharashtra,Nashik,Road,1200000,2022-04-10,120,2022-09-05,True,True,1150000,19.9975,73.7898
+W002,Construction of concrete road at Shivaji Nagar Village phase 2,Maharashtra,Nashik,Road,1150000,2022-04-15,110,2022-08-20,True,True,1100000,19.9980,73.7901
 W003,Installation of overhead water tank at Panchavati,Maharashtra,Nashik,Water Supply,800000,2022-01-05,90,2022-04-10,True,True,780000,20.0110,73.7960
 W004,Construction of additional classroom at Zilla Parishad school,Maharashtra,Nashik,School Building,600000,2022-02-01,150,,False,False,200000,19.9890,73.7700
 W005,Widening of state highway connecting link road,Maharashtra,Nashik,Road,45000000,2022-03-01,365,,False,False,5000000,20.0500,73.8200

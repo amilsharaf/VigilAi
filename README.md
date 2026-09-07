@@ -77,8 +77,11 @@ sanction_date, expected_duration_days, completion_date, is_complete,
 has_completion_image, total_paid, lat, lon
 ```
 
-`lat`/`lon` are optional — if omitted, duplicate detection still runs on
-text similarity alone (noted in the response `meta`).
+`lat`/`lon` are optional and not required for duplicate detection — real
+eSAKSHI exports don't have them. Duplicate detection primarily matches on
+village/taluk/ward names extracted from each work's `description`, backed
+by TF-IDF text similarity; `lat`/`lon` (when present) are only used as an
+extra confirming check.
 
 Returns the original rows plus new ML-derived fields:
 
@@ -104,7 +107,8 @@ Returns the original rows plus new ML-derived fields:
     "ml_anomaly_score": { "computed": true },
     "duplicate_cluster_id": {
       "computed": true,
-      "geo_constraint_used": true,
+      "geo_confirmation_used": true,
+      "location_tokens_extracted_pct": 62.5,
       "clusters_found": 1,
       "works_in_clusters": 2,
       "note": null

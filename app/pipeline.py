@@ -80,6 +80,25 @@ def validate_columns(df: pd.DataFrame) -> list[str]:
     return [c for c in REQUIRED_COLUMNS if c not in df.columns]
 
 
+def _coerce_numeric_column(df: pd.DataFrame, column: str, *, required: bool = True) -> pd.Series:
+    """Coerce a column to numeric. If `required`, raise a clear error when the
+    column holds something else entirely (e.g. dates instead of a day count)
+    rather than silently scoring on all-NaN data — used for columns like
+    sanctioned_cost that nearly every signal depends on. If not required,
+    unparseable values just become NaN and whichever signal depends on this
+    column degrades gracefully (skips or falls back) instead of failing the
+    whole request."""
+    original = df[column]
+    coerced = pd.to_numeric(original, errors="coerce")
+    if required and original.notna().any() and coerced.notna().sum() == 0:
+        example = original.dropna().iloc[0]
+        raise ValueError(
+            f"Column '{column}' should contain numbers, but its values look like "
+            f"'{example}' — none of them could be read as a number."
+        )
+    return coerced
+
+
 def _prepare_features(df: pd.DataFrame) -> pd.DataFrame:
     """Shared feature engineering used by both the anomaly and delay models."""
     df = df.copy()
@@ -87,6 +106,11 @@ def _prepare_features(df: pd.DataFrame) -> pd.DataFrame:
     # CSV booleans can arrive as "True"/"False", "TRUE"/"FALSE", 1/0, etc.
     df["is_complete"] = (
         df["is_complete"].astype(str).str.strip().str.lower().isin(["true", "1", "yes"])
+    )
+
+    df["sanctioned_cost"] = _coerce_numeric_column(df, "sanctioned_cost")
+    df["expected_duration_days"] = _coerce_numeric_column(
+        df, "expected_duration_days", required=False
     )
 
     df["sanction_date"] = pd.to_datetime(df["sanction_date"], format="mixed", errors="coerce")
@@ -292,7 +316,11 @@ def compute_delay_risk(
         "test_roc_auc": None,
     }
 
-    completed = df[df["is_complete"] == True].dropna(subset=["actual_duration_days"]).copy()  # noqa: E712
+    completed = (
+        df[df["is_complete"] == True]  # noqa: E712
+        .dropna(subset=["actual_duration_days", "expected_duration_days"])
+        .copy()
+    )
     meta["completed_works_count"] = len(completed)
 
     if len(completed) < min_labeled:
@@ -332,7 +360,14 @@ def compute_delay_risk(
     model.fit(Xd_train, yd_train)
     auc = roc_auc_score(yd_test, model.predict_proba(Xd_test)[:, 1])
 
-    df["delay_risk_score"] = (model.predict_proba(df[delay_features])[:, 1] * 100).round(1)
+    # Rows missing any delay feature (e.g. an unparseable expected_duration_days
+    # or sanction_date) can't be scored — leave those as null rather than
+    # erroring the whole request over a handful of bad rows.
+    predictable = df[delay_features].notna().all(axis=1)
+    df["delay_risk_score"] = np.nan
+    df.loc[predictable, "delay_risk_score"] = (
+        model.predict_proba(df.loc[predictable, delay_features])[:, 1] * 100
+    ).round(1)
 
     meta["computed"] = True
     meta["test_roc_auc"] = round(float(auc), 3)
